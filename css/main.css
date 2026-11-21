@@ -1,0 +1,580 @@
+/* =========================================================
+   css/main.css — საიტის მთავარი სტილები (იტვირთება theme.css-ის შემდეგ)
+   ---------------------------------------------------------
+   თანმიმდევრობა: ცვლადები (--emerald, --sage) → ზედა ჰედერი → ნავიგაცია →
+   .container → Hero (.hero-split) → ბანერი → სექციის სათაურები →
+   ბარათები (.card = თეთრი, ზეთისხილისფერი ზოლით) → FAQ → ფორმები, ღილაკები, .modal →
+   Footer → მობილური (@media) → .tab-content → ფოკუსი და ანიმაცია → დირექცია/პედაგოგები
+   შენიშვნა: ამჟამად index.html-ში არ გამოიყენება და უსაფრთხოდ წაიშლება:
+   .faq-..., .promo-banner, .admin-tabs, .adm-tab, .admin-footer
+   ბარათის ფერი: ეს ფაილი = თეთრი (.card); თეთრი ბარათები theme.css-შია
+   ========================================================= */
+
+
+:root {
+  --emerald-dark: #14261c;
+  --emerald-mid: #1f4330;
+  --emerald-soft: #2f5a3f;
+  --olive: #7d8b45;
+  --sage-accent: #d5dcb8;
+  --sage-hover: #c3cca0;
+  --font-heading: 'Noto Serif Georgian', Georgia, serif;
+  --font-body: 'Noto Sans Georgian', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+  background: var(--bg, #f6f4ea); 
+  color: var(--text, #111827); 
+  font-family: var(--font-body);
+  transition: 0.3s; 
+  line-height: 1.65; 
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .school-title, .stat-num {
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
+
+/* --- ზედა ჰედერი --- */
+.site-top-header {
+  background: var(--emerald-dark);
+  color: #ffffff;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.school-brand-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.school-logo-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(213, 220, 184, 0.14);
+  border: 1px solid rgba(213, 220, 184, 0.3);
+  color: var(--sage-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+.school-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.school-subtitle {
+  font-size: 0.84rem;
+  color: var(--sage-accent);
+  margin-top: 3px;
+}
+
+/* --- ნავიგაციის მენიუ --- */
+.navbar { 
+  background: var(--surface, #ffffff); 
+  border-bottom: 1px solid var(--border, #e3e1d2); 
+  position: sticky; 
+  top: 0; 
+  z-index: 100; 
+  padding: 12px 20px; 
+  box-shadow: 0 4px 15px rgba(20, 38, 28, 0.04);
+}
+.nav-container { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+.nav-links { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+.nav-btn { 
+  background: transparent; 
+  border: none; 
+  color: var(--text, #111827); 
+  padding: 8px 16px; 
+  border-radius: 999px; 
+  cursor: pointer; 
+  font-weight: 500; 
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+}
+.nav-btn:hover { background: rgba(213, 220, 184, 0.35); color: var(--emerald-dark); }
+.nav-btn.active { background: var(--emerald-dark); color: #ffffff; font-weight: 600; }
+
+.theme-btn { 
+  background: var(--sage-accent); 
+  color: var(--emerald-dark);
+  border: none; 
+  padding: 8px 13px; 
+  border-radius: 999px; 
+  cursor: pointer; 
+}
+
+.container { 
+  max-width: 1180px; 
+  margin: 30px auto; 
+  padding: 0 20px; 
+  min-height: 55vh; /* ეს უზრუნველყოფს, რომ თუნდაც ცარიელი იყოს, გვერდი ლამაზად გამოიყურებოდეს */
+}
+.hero-split {
+  background:
+    linear-gradient(135deg, rgba(13, 44, 22, 0.85) 0%, rgba(20, 61, 32, 0.6) 100%),
+    url(https://res.cloudinary.com/dvmiinq4w/image/upload/v1795185346/rv09omz8ifxstur3non2.webp) center 40% / cover no-repeat;
+  color: #ffffff;
+  border-radius: 24px;
+  padding: 55px 48px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 22px 45px -12px rgba(20, 38, 28, 0.28);
+}
+@media (max-width: 900px) {
+  .hero-split { grid-template-columns: 1fr; padding: 34px 24px; }
+}
+.hero-pill {
+  display: inline-block;
+  background: rgba(213, 220, 184, 0.14);
+  border: 1px solid rgba(213, 220, 184, 0.3);
+  color: var(--sage-accent);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.hero-left h1 {
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.hero-left p {
+  color: #dfe5cf;
+  font-size: 1.02rem;
+  max-width: 540px;
+  margin-bottom: 26px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+
+.btn-sage {
+  background: var(--sage-accent);
+  color: var(--emerald-dark);
+  border: none;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.btn-sage:hover { background: var(--sage-hover); transform: translateY(-2px); }
+
+.btn-outline-light {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-outline-light:hover { background: rgba(255, 255, 255, 0.1); }
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.stat-item { display: flex; flex-direction: column; }
+.stat-num { font-size: 1.75rem; font-weight: 700; color: var(--sage-accent); line-height: 1.1; }
+.stat-label { font-size: 0.85rem; color: #d3dabd; margin-top: 4px; }
+
+.hero-visual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.visual-box {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 22px;
+  backdrop-filter: blur(6px);
+}
+.visual-box.main-box { grid-column: span 2; }
+.visual-box.accent-box { background: rgba(213, 220, 184, 0.16); border-color: rgba(213, 220, 184, 0.35); }
+.visual-icon { font-size: 1.6rem; margin-bottom: 8px; }
+.visual-box h4 { font-size: 1.05rem; color: #ffffff; margin-bottom: 4px; }
+.visual-box p { font-size: 0.86rem; color: #dfe5cf; }
+
+/* --- საინფორმაციო ბანერი (1-ლი სქრინი) --- */
+.promo-banner {
+  background: var(--emerald-mid);
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 28px 36px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 12px 28px -8px rgba(20, 38, 28, 0.2);
+}
+.promo-info h3 { font-size: 1.35rem; margin: 6px 0; color: #ffffff; }
+.promo-info p { color: #dfe5cf; font-size: 0.94rem; }
+
+/* --- სექციის სათაურები --- */
+.section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
+.section-kicker { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--emerald-soft); margin-bottom: 4px; }
+.section-header h3 { color: var(--emerald-dark); font-size: 1.65rem; }
+
+/* --- ბარათები (მე-3 და მე-4 სქრინები) --- */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px; }
+
+/* --- ბარათები: თეთრი, ზეთისხილისფერი ზოლით და მსუბუქი დეკორით --- */
+.card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfaf2 100%) !important;
+  border: 1px solid #e3e1d2 !important;
+  border-radius: 16px !important;
+  padding: 24px 24px 24px 30px !important;
+  color: var(--emerald-dark) !important;
+  box-shadow: 0 8px 22px -12px rgba(20, 38, 28, 0.25) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* მარცხენა ზოლი */
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--olive, #7d8b45);
+  transition: background 0.25s ease;
+}
+
+/* მსუბუქი დეკორატიული ნათება კუთხეში */
+.card::after {
+  content: '';
+  position: absolute;
+  right: -34px; top: -34px;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(125, 139, 69, 0.18) 0%, rgba(125, 139, 69, 0) 70%);
+  pointer-events: none;
+}
+
+.card > * { position: relative; z-index: 1; }
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--olive, #7d8b45) !important;
+  box-shadow: 0 16px 30px -12px rgba(20, 38, 28, 0.35) !important;
+}
+.card:hover::before { background: var(--emerald-soft); }
+
+.card h3, .card h4 {
+  color: var(--emerald-dark) !important;
+  margin-bottom: 10px;
+  font-family: var(--font-heading);
+}
+
+/* სათაურის ქვეშ მოკლე ზეთისხილისფერი ხაზი */
+.card h4::after {
+  content: '';
+  display: block;
+  width: 28px; height: 3px;
+  margin-top: 8px;
+  border-radius: 2px;
+  background: var(--olive, #7d8b45);
+}
+
+.card p {
+  color: #596356 !important;
+  font-size: 0.94rem;
+  white-space: pre-line;      /* ადმინ-პანელიდან შეყვანილი აბზაცები შენარჩუნდეს */
+  overflow-wrap: anywhere;
+}
+
+.card a {
+  color: var(--emerald-soft);
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center top; /* პორტრეტებზე სახე არ მოიჭრას */
+  border-radius: 12px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(20, 38, 28, 0.1);
+}
+
+/* მუქი თემა: ბარათები მუქდება */
+body.dark .card {
+  background: linear-gradient(180deg, #1c2b22 0%, #17241c 100%) !important;
+  border-color: rgba(213, 220, 184, 0.15) !important;
+  color: #e4e8cf !important;
+}
+body.dark .card h3, body.dark .card h4 { color: #ffffff !important; }
+body.dark .card p { color: #cfd6bb !important; }
+body.dark .card a { color: var(--sage-accent); }
+
+.badge { 
+  display: inline-block; 
+  background: var(--sage-accent); 
+  color: var(--emerald-dark); 
+  padding: 4px 12px; 
+  border-radius: 999px; 
+  font-size: 0.78rem; 
+  font-weight: 700; 
+  margin-bottom: 8px; 
+}
+
+/* --- FAQ / კითხვა-პასუხის სექცია (მე-5 სქრინი) --- */
+.faq-section {
+  background: var(--emerald-dark);
+  color: #ffffff;
+  border-radius: 24px;
+  padding: 48px 42px;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 38px;
+  align-items: start;
+}
+
+.faq-left .section-kicker { color: var(--sage-accent); }
+.faq-left h3 { font-size: 1.85rem; color: #ffffff; margin-bottom: 12px; }
+.faq-left p { color: #dfe5cf; font-size: 0.95rem; margin-bottom: 24px; }
+
+.faq-quick-links { display: flex; flex-direction: column; gap: 10px; }
+.faq-nav-pill {
+  background: var(--sage-accent);
+  color: var(--emerald-dark);
+  border: none;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.faq-nav-pill:hover { background: var(--sage-hover); transform: translateX(4px); }
+
+.faq-right { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 16px 20px;
+  transition: background 0.2s ease;
+}
+.faq-item[open] {
+  background: var(--emerald-soft);
+  border-color: var(--sage-accent);
+}
+.faq-item summary {
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-item summary::after { content: '+'; font-size: 1.3rem; color: var(--sage-accent); }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #eaeedd;
+  font-size: 0.92rem;
+}
+
+/* --- ფორმები, ცხრილი და მოდალები --- */
+.filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0 22px; }
+input, select, textarea { 
+  background: var(--surface, #ffffff); 
+  color: var(--text, #111827); 
+  border: 1px solid var(--border, #d1d5db); 
+  padding: 11px 14px; 
+  border-radius: 10px; 
+  font-size: 0.95rem; 
+  font-family: var(--font-body);
+  width: 100%; 
+}
+.filter-bar input { max-width: 320px; }
+.form-stack { display: flex; flex-direction: column; gap: 12px; }
+
+.btn-primary { background: var(--emerald-dark); color: #fff; border: none; padding: 11px 20px; border-radius: 999px; font-weight: 600; cursor: pointer; }
+.btn-secondary { background: var(--sage-accent); color: var(--emerald-dark); border: none; padding: 8px 16px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+
+.bell-row { display: flex; justify-content: space-between; padding: 12px 16px; background: rgba(213, 220, 184, 0.25); border-left: 4px solid var(--olive); border-radius: 8px; margin-top: 8px; }
+.sub-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.sub-btn { background: var(--surface, #ffffff); border: 1px solid var(--border, #d1d5db); color: var(--text, #111827); padding: 9px 18px; border-radius: 999px; cursor: pointer; font-weight: 500; }
+.sub-btn.active { background: var(--emerald-dark); color: #ffffff; }
+.sub-content { display: none; }
+.sub-content.active { display: block; }
+
+.modal { position: fixed; inset: 0; background: rgba(20, 38, 28, 0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 15px; }
+.modal.hidden { display: none; }
+.modal-box { background: var(--surface, #ffffff); border: 1px solid var(--border, #d1d5db); border-radius: 18px; padding: 24px; width: 100%; max-width: 480px; }
+.modal-box.small { max-width: 360px; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.close-btn { background: none; border: none; font-size: 1.3rem; color: var(--text, #111827); cursor: pointer; }
+
+.admin-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.adm-tab { background: rgba(213, 220, 184, 0.3); border: none; color: var(--emerald-dark); padding: 7px 12px; border-radius: 999px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+.adm-tab.active { background: var(--emerald-dark); color: #ffffff; }
+.admin-footer { display: flex; justify-content: space-between; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border, #d1d5db); }
+
+.mt-15 { margin-top: 15px; } 
+.mt-20 { margin-top: 20px; } 
+.mt-30 { margin-top: 30px; } 
+.mt-40 { margin-top: 42px; }
+.italic { font-style: italic; color: var(--muted, #596356); }
+
+/* --- ტალღოვანი Footer (მე-6 სქრინი) --- */
+.site-footer {
+  margin-top: 70px;
+  color: #ffffff;
+}
+
+.footer-wave {
+  line-height: 0;
+  overflow: hidden;
+}
+.footer-wave svg {
+  width: 100%;
+  height: 45px;
+  display: block;
+}
+
+.footer-body {
+  background: var(--emerald-dark);
+  padding: 35px 20px 25px;
+}
+
+.footer-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr 1fr;
+  gap: 30px;
+}
+
+.footer-col h4 {
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  color: var(--sage-accent);
+}
+
+.footer-col p {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #dfe5cf;
+}
+
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { color: #dfe5cf; text-decoration: none; font-size: 0.9rem; transition: color 0.2s ease; }
+.footer-links a:hover { color: var(--sage-accent); }
+
+.footer-socials { display: flex; gap: 10px; margin-top: 14px; }
+.footer-socials a {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(213, 220, 184, 0.14);
+  color: var(--sage-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.footer-bottom {
+  max-width: 1180px;
+  margin: 30px auto 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  font-size: 0.85rem;
+  color: #a9b494;
+}
+
+@media (max-width: 900px) {
+  .hero-split, .faq-section { grid-template-columns: 1fr; padding: 34px 24px; }
+  .footer-container { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .footer-container { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; }
+}
+
+/* ჩანართების მართვის აუცილებელი სტილები */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* --- წვდომადობა: კლავიატურის ფოკუსი და შემცირებული ანიმაცია --- */
+:focus-visible {
+  outline: 2px solid var(--emerald-soft);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--sage-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .card:hover, .btn-sage:hover, .faq-nav-pill:hover { transform: none; }
+}
+
+/* --- დირექცია და პედაგოგები: კომპაქტური ბარათები --- */
+#teachersGrid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; align-items: start; }
+#teachersGrid > div { padding: 14px !important; }
+#teachersGrid h4 { font-size: 1rem; margin-bottom: 4px; }
+#teachersGrid p { font-size: 0.85rem; }
+
+/* --- მთავარი ბანერის ფონი (Cloudinary ფოტო) ---
+   ჩაანაცვლეთ PASTE_LINK_HERE თქვენი ბმულით და წაშალეთ ეს კომენტარის ნიშნები:
+.hero-split {
+  background:
+    linear-gradient(135deg, rgba(20, 38, 28, 0.85) 0%, rgba(31, 67, 48, 0.6) 100%),
+    url('PASTE_LINK_HERE') center 40% / cover no-repeat;
+}
+*/

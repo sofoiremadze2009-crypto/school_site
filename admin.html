@@ -1,0 +1,83 @@
+<!-- =========================================================
+  admin.html — ადმინისტრაციული პანელი (მისამართი: /admin.html, index.html-ში ბმული არ არის)
+  სტრუქტურა: #lock (პაროლის ფანჯარა) → #adminApp: ჩანართები (#tabs),
+  ფორმა (#form: სათაური, #extraRow, ტექსტი, #imgRow ფოტო), სია (#list)
+  სტილი: css/theme.css + css/main.css + პატარა <style> ამავე ფაილში
+  ლოგიკა: js/data.js → js/admin.js (პაროლი და Cloudinary admin.js-შია)
+========================================================= -->
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ადმინისტრაციული პანელი</title>
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/main.css">
+<style>
+[hidden] { display: none !important; }
+#lock { background: var(--emerald-dark); }
+#lockErr { color: #b00020; min-height: 1.3em; font-size: .9rem; }
+.admin-main { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; display: grid; gap: 20px; }
+.box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+.box h3 { color: var(--emerald-dark); margin-bottom: 14px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+#imgRow input { flex: 1; min-width: 200px; }
+.item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--border); }
+.item:first-child { border-top: 0; }
+.item img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+.item .t { flex: 1; min-width: 0; }
+.item .t b { display: block; }
+.item .t span { color: var(--muted); font-size: .92rem; overflow-wrap: anywhere; }
+.ic { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit; }
+</style>
+</head>
+<body>
+
+<div class="modal" id="lock" hidden>
+  <form class="modal-box small form-stack" id="lockForm">
+    <h3>ადმინისტრატორის შესვლა</h3>
+    <input type="password" id="pw" placeholder="პაროლი" autocomplete="current-password" required>
+    <p id="lockErr" role="alert"></p>
+    <button class="btn-primary" type="submit">შესვლა</button>
+  </form>
+</div>
+
+<div id="adminApp" hidden>
+  <header class="site-top-header">
+    <div class="school-brand-container">
+      <div>
+        <div class="school-title">ადმინისტრაციული პანელი</div>
+        <div class="school-subtitle">დაბა ნასაკირალის საჯარო სკოლა</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navbar"><div class="nav-container"><div class="sub-tabs" id="tabs" style="margin:0"></div></div></nav>
+
+  <main class="admin-main">
+    <section class="box" id="formBox">
+      <h3 id="formTitle"></h3>
+      <form class="form-stack" id="form">
+        <input id="fTitle" placeholder="სათაური" required>
+        <div id="extraRow"><input id="fExtra"></div>
+        <textarea id="fText" rows="4" placeholder="ტექსტი"></textarea>
+        <div class="row" id="imgRow">
+          <input id="fImage" placeholder="სურათის ბმული (Cloudinary secure_url)">
+          <button class="btn-secondary" type="button" id="upBtn">ატვირთვა</button>
+        </div>
+        <div class="row">
+          <button class="btn-primary" type="submit" id="saveBtn">დამატება</button>
+          <button class="btn-secondary" type="button" id="cancelBtn" hidden>გაუქმება</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="box"><h3 id="listTitle"></h3><div id="list"></div></section>
+  </main>
+</div>
+
+<script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+<script src="js/data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

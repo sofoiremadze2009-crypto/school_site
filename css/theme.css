@@ -1,0 +1,215 @@
+/* =========================================================
+   Naskirali Public School — Custom Emerald & Serif Theme
+   Based on selected Figma Design System
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Noto+Serif+Georgian:wght@500;600;700&display=swap');
+
+:root {
+  /* ფერების პალიტრა (Figma-ს მე-3 სქრინის მიხედვით) */
+  --bg-dark-emerald: #14261c;
+  --bg-emerald-mid: #1f4330;
+  --accent-sage: #d5dcb8;
+  --accent-sage-hover: #c3cca0;
+  --olive: #7d8b45;
+  --bg-page: #f6f4ea;
+  --bg-card: #ffffff;
+  
+  /* ტექსტის ფერები */
+  --text-main: #111827;
+  --text-muted: #596356;
+  --text-light: #ffffff;
+  --text-light-muted: #dfe5cf;
+
+  /* ჩარჩოები და ჩრდილები */
+  --border-subtle: #e3e1d2;
+  --shadow-soft: 0 10px 25px -5px rgba(20, 38, 28, 0.06), 0 4px 10px -2px rgba(20, 38, 28, 0.03);
+  --shadow-hover: 0 18px 35px -8px rgba(20, 38, 28, 0.12);
+  --radius-card: 16px;
+  --radius-btn: 999px;
+
+  /* შრიფტები (1-ლი სქრინის Serif + Sans კომბინაცია) */
+  --font-heading: 'Noto Serif Georgian', Georgia, serif;
+  --font-body: 'Noto Sans Georgian', system-ui, -apple-system, sans-serif;
+
+  /* main.css-ის ცვლადების ალიასები */
+  --bg: var(--bg-page);
+  --text: var(--text-main);
+  --surface: var(--bg-card);
+  --border: var(--border-subtle);
+  --muted: var(--text-muted);
+}
+
+/* --- საბაზისო სტილები --- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .section-title, .hero-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* --- ლოგო (ზედა ნავიგაციის სტილები main.css-შია) --- */
+.logo, .brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-light) !important;
+}
+
+/* --- მთავარი ბანერი (Hero Section - 1-ლი სქრინის სტილი) --- */
+.hero, .hero-section {
+  background: linear-gradient(135deg, rgba(20, 38, 28, 0.92), rgba(31, 67, 48, 0.85)),
+              var(--hero-bg, #14261c);
+  background-size: cover;
+  background-position: center;
+  color: var(--text-light);
+  text-align: center;
+  padding: 90px 20px;
+}
+
+.hero h1, .hero-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.hero p, .hero-subtitle {
+  color: var(--text-light-muted);
+  max-width: 680px;
+  margin: 0 auto 28px;
+  font-size: 1.05rem;
+}
+
+/* --- ღილაკები (Figma-ს მომრგვალებული სალათისფერი სტილი) ---
+   მხოლოდ .btn; .btn-primary და submit ღილაკები main.css-ში/ადმინში იმართება */
+.btn {
+  background-color: var(--accent-sage) !important;
+  color: var(--bg-dark-emerald) !important;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 11px 24px;
+  border-radius: var(--radius-btn) !important;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: var(--accent-sage-hover) !important;
+  transform: translateY(-2px);
+}
+
+/* --- მუქი ზურმუხტისფერი სექცია (დირექტორი / ადმინისტრაცია - მე-3 სქრინის სტილი) --- */
+.director-section, .dark-section, #director, #about-highlight {
+  background-color: var(--bg-dark-emerald) !important;
+  color: var(--text-light) !important;
+  padding: 70px 20px;
+}
+
+.director-section h2, .dark-section h2 {
+  color: var(--text-light) !important;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.director-section .role, .director-subtitle {
+  color: var(--accent-sage) !important;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.director-section p, .dark-section p {
+  color: var(--text-light-muted) !important;
+}
+
+.director-section img, .director-photo {
+  border-radius: 20px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  object-fit: cover;
+}
+
+/* --- თეთრი ბარათები (მასწავლებლები, ბიბლიოთეკა და სხვა) ---
+   .card (მუქი ბარათი) main.css-შია აღწერილი */
+.news-card, .teacher-card, .book-card, .activity-card {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-card) !important;
+  box-shadow: var(--shadow-soft) !important;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.news-card:hover, .teacher-card:hover, .book-card:hover, .activity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover) !important;
+}
+
+.news-card h3, .teacher-card h3, .book-card h3 {
+  font-family: var(--font-heading);
+  color: var(--bg-dark-emerald);
+  margin-top: 0;
+}
+
+.news-card p, .teacher-card p {
+  color: var(--text-muted);
+}
+
+/* --- ქვედა ნაწილი (Footer) --- */
+footer {
+  background-color: var(--bg-dark-emerald) !important;
+  color: var(--text-light-muted) !important;
+  padding: 45px 20px 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+footer h3, footer h4 {
+  color: var(--text-light) !important;
+}
+
+footer a {
+  color: var(--accent-sage) !important;
+  text-decoration: none;
+}
+
+/* --- მუქი თემა (გადამრთველი: #themeToggleBtn) --- */
+body.dark {
+  --bg: #0f1a13; --text: #e6eee8; --surface: #16251b; --border: #2a3d30; --muted: #a9bcae;
+  background-color: #0f1a13;
+  color: #e6eee8;
+}
+body.dark .news-card, body.dark .teacher-card, body.dark .book-card, body.dark .activity-card {
+  background-color: var(--surface) !important;
+  border-color: var(--border) !important;
+}
+body.dark .news-card h3, body.dark .teacher-card h3, body.dark .book-card h3,
+body.dark .news-card h4, body.dark .teacher-card h4, body.dark .book-card h4,
+body.dark .section-header h3, body.dark .section-kicker { color: var(--accent-sage); }
+body.dark .news-card p, body.dark .teacher-card p, body.dark .book-card p { color: var(--muted); }
+body.dark .nav-btn:hover { color: #ffffff; }
+
+/* --- თეთრი ბარათების შიდა დაშორება და სათაურები --- */
+.news-card, .teacher-card, .book-card, .activity-card { padding: 24px; }
+.news-card h4, .teacher-card h4, .book-card h4 {
+  font-family: var(--font-heading);
+  color: var(--bg-dark-emerald);
+  margin: 0 0 8px;
+}
+.book-card p, .activity-card p { color: var(--text-muted); }
