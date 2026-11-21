@@ -1,19 +1,4 @@
-/* =========================================================
-   js/admin.js — ადმინ-პანელის ლოგიკა (მუშაობს მხოლოდ admin.html-ზე)
-   ---------------------------------------------------------
-   თანმიმდევრობა ფაილში:
-   1. PASSWORD და მდგომარეობა (ამჟამინდელი სექცია, რედაქტირების ID)
-   2. გალერეა       – ექსკურსიების მრავალი ფოტო (renderGallery, ატვირთვა)
-   3. შესვლა        – პაროლის შემოწმება, sessionStorage-ით დამახსოვრება
-   4. ჩანართები     – buildTabs(), resetForm()
-   5. render()      – სიის გამოტანა, ღილაკები ✎ (რედაქტირება) და 🗑 (წაშლა)
-   6. startEdit()   – ჩანაწერის ჩატვირთვა ფორმაში; form submit – დამატება/შენახვა
-   7. Cloudinary    – ერთი ფოტოს ატვირთვა (სიახლე, მიღწევა, პედაგოგი...)
-   საჭიროებს: data.js-ს (SCHOOL_SECTIONS, SchoolStore) მასზე ადრე ჩატვირთვას
-   რა სად შევცვალო:
-   - პაროლი               → const PASSWORD
-   - Cloudinary-ს მონაცემები → cloudName და uploadPreset (ორ ადგილას)
-   ========================================================= */
+/* ადმინ-პანელის ლოგიკა (admin.html). საჭიროა js/data.js მასზე ადრე ჩატვირთვა. */
 document.addEventListener('DOMContentLoaded', () => {
   const $ = id => document.getElementById(id);
   if (!$('adminApp')) return;
@@ -68,6 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
     galWidget.open();
   };
 
+  /* ---------- ჯგუფები: ჩანართები ერთიანდება საიტის სტრუქტურის მიხედვით ---------- */
+  const GROUPS = [
+    { label: 'მთავარი გვერდი',  keys: ['school_news', 'school_achievements'] },
+    { label: 'სკოლის შესახებ',  keys: ['school_management', 'school_teachers'] },
+    { label: 'ბიბლიოთეკა',      keys: ['school_books'] },
+    { label: 'მოსწავლეთა ზონა', keys: ['school_trips', 'school_clubs', 'school_olympiads'] },
+    { label: 'იდეები',          keys: ['school_ideas'] }
+  ];
+  const secByKey = k => SCHOOL_SECTIONS.find(x => x.key === k);
+  const groupOf = sec => GROUPS.find(g => g.keys.includes(sec.key)) || GROUPS[0];
+  let subRow = null;   // მეორე რიგი: არჩეული ჯგუფის სექციები
+
   /* ---------- შესვლა ---------- */
   function unlock() {
     $('lock').hidden = true;
@@ -77,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   let remembered = false;
   try { remembered = sessionStorage.getItem('adm_ok') === '1'; } catch (e) {}
-  if (remembered) unlock(); else $('lock').hidden = false;
+  if (remembered) unlock(); else $('lock').hidden = false;   // პაროლის ფანჯარა ჩანს მხოლოდ საჭიროების შემთხვევაში
 
   $('lockForm').addEventListener('submit', e => {
     e.preventDefault();
@@ -94,14 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildTabs() {
     const nav = $('tabs');
     nav.innerHTML = '';
-    SCHOOL_SECTIONS.forEach(s => {
+    GROUPS.forEach(g => {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'sub-btn';
-      b.textContent = s.label;
-      b.onclick = () => { cur = s; resetForm(); render(); };
+      b.textContent = g.label;
+      b.onclick = () => { cur = secByKey(g.keys[0]); resetForm(); render(); };
       nav.appendChild(b);
     });
+    if (!subRow) {
+      subRow = document.createElement('div');
+      subRow.className = 'sub-tabs';
+      subRow.style.cssText = 'margin:0;padding:12px max(20px, calc((100% - 1140px) / 2));background:var(--surface);border-bottom:1px solid var(--border);';
+      nav.closest('nav').after(subRow);
+    }
   }
 
   function resetForm() {
@@ -115,7 +118,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- გამოტანა ---------- */
   function render() {
-    [...$('tabs').children].forEach((b, i) => b.classList.toggle('active', SCHOOL_SECTIONS[i] === cur));
+    const grp = groupOf(cur);
+    [...$('tabs').children].forEach((b, i) => b.classList.toggle('active', GROUPS[i] === grp));
+    subRow.innerHTML = '';
+    subRow.hidden = grp.keys.length < 2;
+    if (grp.keys.length > 1) {
+      grp.keys.forEach(k => {
+        const sec = secByKey(k);
+        const sb = document.createElement('button');
+        sb.type = 'button';
+        sb.className = 'adm-tab' + (sec === cur ? ' active' : '');
+        sb.textContent = sec.label;
+        sb.onclick = () => { cur = sec; resetForm(); render(); };
+        subRow.appendChild(sb);
+      });
+    }
 
     $('formBox').hidden = !!cur.readonly;
     $('imgRow').hidden = !cur.image;
